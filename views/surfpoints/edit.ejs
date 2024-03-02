@@ -1,0 +1,95 @@
+
+<% layout('/layouts/boilerplate') %>
+
+<div class="row">
+  <h1 class="text-center">キャンプ場の編集</h1>
+  <div class="offset-md-3 col-md-6">
+    <form action="/surfpoints/<%= surfpoint._id %>?_method=PUT" method="POST" class="validated-form"  novalidate enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="title" class="form-label">タイトル</label>
+        <input
+          type="text"
+          class="form-control"
+          name="surfpoint[title]"
+          id="title"
+          value="<%= surfpoint.title %>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="location">場所</label>
+        <input
+          class="form-control"
+          type="text"
+          name="surfpoint[location]"
+          id="location"
+          value="<%= surfpoint.location %>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+
+      <div class="mb-3">
+        <label class="form-label" for="image">価格</label>
+        <div class="input-group">
+          <span class="input-group-text" id="basic-addon1">￥</span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="0"
+            id="price"
+            aria-label="価格"
+            aria-describedby="price-label"
+            name="surfpoint[price]"
+            value="<%= surfpoint.price %>"
+            required
+            />
+            <div class="valid-feedback">Looks good!</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="description">説明</label>
+        <input
+          class="form-control"
+          type="text"
+          name="surfpoint[description]"
+          id="description"
+          value="<%= surfpoint.description %>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label for="image" class="form-label">画像を追加アップロード</label>
+        <input
+          class="form-control"
+          type="file"
+          id="image"
+          name="image"
+          multiple
+        />
+      </div>
+
+      <div class="mb-3">
+        <% surfpoint.images.forEach(function(img,i){ %>
+          <img src="<%= img.thumbnail %>" class="img-thumbnail" alt="">
+          <div class="form-check-inline">
+            <input type="checkbox" name="deleteImages[]" id="image<%= i %>" value="<%= img.filename %>">
+          </div>
+          <label for="image<%= i %>">削除する</label>
+        <% }) %>
+
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-info">更新する</button>
+      </div>
+    </form>
+    <a href="/surfpoints">一覧に戻る</a>
+  </div>
+
+  </div>
+</div>
