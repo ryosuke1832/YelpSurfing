@@ -26,10 +26,8 @@ const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
 
 // port
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// const dbUrl = process.env.DB_URL
-// 'mongodb://127.0.0.1:27017/surf-camp'
 
 const dbUrl =process.env.DB_URL ||  'mongodb://127.0.0.1:27017/surf-camp'
 mongoose.connect(dbUrl, {
