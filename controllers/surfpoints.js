@@ -23,7 +23,7 @@ module.exports.showSurfpoint = async (req, res) => {
       }
     }).populate('author');
     if (!surfpoint){
-      req.flash('error','キャンプ場は見つかりませんでした');
+      req.flash('error','サーフポイントは見つかりませんでした');
       return res.redirect('/surfpoints');
     }
     res.render('surfpoints/show', { surfpoint });
@@ -39,7 +39,7 @@ module.exports.createSurfpoint = async (req,res,next)=>{
     surfpoint.images =req.files.map(f =>({url: f.path,filename:f.filename}));
     surfpoint.author = req.user._id;
     await surfpoint.save();
-    req.flash('success','新しいキャンプ場を登録しました');
+    req.flash('success','サーフポイントを登録しました');
     res.redirect(`/surfpoints/${surfpoint._id}`);
 }
 
@@ -47,7 +47,7 @@ module.exports.renderEditForm = async (req,res)=>{
     const {id} = req.params;
     const surfpoint = await Surfpoint.findById(id);
     if (!surfpoint){
-      req.flash('error','キャンプ場は見つかりませんでした');
+      req.flash('error','サーフポイントは見つかりませんでした');
       return res.redirect('/surfpoints');
     }
     res.render('surfpoints/edit',{surfpoint});
@@ -65,13 +65,13 @@ module.exports.updateSurfpoint = async(req,res)=>{
       }
       await surfpoint.updateOne({$pull:{images: {filename:{$in: req.body.deleteImages}}}})
     }
-    req.flash('success','キャンプ場を更新しました');
+    req.flash('success','サーフポイントを更新しました');
     res.redirect(`/surfpoints/${surfpoint._id}`);
   }
 
   module.exports.deleteSurfpoint= async (req,res)=>{
     const {id} = req.params;
     await Surfpoint.findByIdAndDelete(id);
-    req.flash('success','キャンプ場を削除しました');
+    req.flash('success','サーフポイントを削除しました');
     res.redirect(`/surfpoints`);
   }
